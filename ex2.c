@@ -7,6 +7,51 @@ Assignment: ex2
 #include <stdio.h>
 
 int main() {
+	int select,size,space;
+	char eyes,nose,mouse;
+	while(1) {
+		printf("Choose an option:\n");
+		printf("	1. Happy Face\n");
+		printf("	2. Balanced Number\n");
+		printf("	3. Generous Number\n");
+		printf("	4. Circle Of Joy\n");
+		printf("	5. Happy Numbers\n");
+		printf("	6. Festival Of Laughter\n");
+		printf("	7. Exit\n");
+		scanf("%d", &select);
+		switch (select) {
+			case 1:
+				printf("Enter symbols for the eyes, nose, and mouse:\n");
+				scanf(" %c %c %c",&eyes,&nose,&mouse);
+				printf("Enter face size:\n");
+				do {
+					scanf("%d",&size);
+					if((size<=0)||(size%2==0))
+						printf("The face's size must be an odd and positive number, please try again:\n");
+				}while((size<=0)||(size%2==0));
+				space = (size +1)/2;
+				for (int i=0;i<size+1;i++) {
+					if(i!=0)
+						printf(" ");
+					else
+						printf("%c",eyes);
+				}printf("%c\n",eyes);
+				for(int i=0;i<space;i++)
+					printf(" ");
+				printf("%c\n\\",nose);
+				for(int i=0;i<size;i++)
+					printf("%c",mouse);
+				printf("/\n");
+				break;
+			default:
+				printf("This option is not available, please try again.\n");
+				break;
+
+		}
+	}
+
+
+
 	// Case 1: Draw Happy Face with given symbols for eyes, nose and mouse
 	/* Example:
 	* n = 3:
