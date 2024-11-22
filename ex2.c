@@ -7,7 +7,7 @@ Assignment: ex2
 #include <stdio.h>
 
 int main() {
-	int select,size,space;
+	int select,number,space,counter,sum1,sum2,size1,flag;
 	char eyes,nose,mouse;
 	while(1) {
 		printf("Choose an option:\n");
@@ -20,17 +20,24 @@ int main() {
 		printf("	7. Exit\n");
 		scanf("%d", &select);
 		switch (select) {
-			case 1:
+			// Case 1: Draw Happy Face with given symbols for eyes, nose and mouse
+			/* Example:
+			* n = 3:
+			* 0   0
+			*   o
+			* \___/
+			*/
+			case 1: {
 				printf("Enter symbols for the eyes, nose, and mouse:\n");
 				scanf(" %c %c %c",&eyes,&nose,&mouse);
 				printf("Enter face size:\n");
 				do {
-					scanf("%d",&size);
-					if((size<=0)||(size%2==0))
+					scanf("%d",&number);
+					if((number<=0)||(number%2==0))
 						printf("The face's size must be an odd and positive number, please try again:\n");
-				}while((size<=0)||(size%2==0));
-				space = (size +1)/2;
-				for (int i=0;i<size+1;i++) {
+				}while((number<=0)||(number%2==0));
+				space = (number +1)/2;
+				for (int i=0;i<number+1;i++) {
 					if(i!=0)
 						printf(" ");
 					else
@@ -39,10 +46,117 @@ int main() {
 				for(int i=0;i<space;i++)
 					printf(" ");
 				printf("%c\n\\",nose);
-				for(int i=0;i<size;i++)
+				for(int i=0;i<number;i++)
 					printf("%c",mouse);
 				printf("/\n");
 				break;
+			}
+
+			// Case 2: determine whether the sum of all digits to the left of the middle digit(s)
+			// and the sum of all digits to the right of the middle digit(s) are equal
+			/* Examples:
+			Balanced: 1533, 450810, 99
+			Not blanced: 1552, 34
+			Please notice: the number has to be bigger than 0.
+			*/
+			case 2: {
+				printf("Enter a number:\n");
+				do {
+					scanf("%d",&number);
+					if(number<=0)
+						printf("Only positive number is allowed, please try again:\n");
+				}while(number<=0);
+				if(number<10)
+					printf("This number is balanced and brings harmony!\n");
+				else {
+
+					size1 = number;
+					counter =0;
+					while(size1 != 0) {
+						counter ++;
+						size1 = size1/10;
+					}
+					sum1 =0;
+					sum2 =0;
+					for(int i=1; i<=counter;i++) {
+						if(i<=counter/2) {
+							sum1 = sum1+number%10;
+							number = number/10;
+						}else if(counter%2==1 && i==(counter/2)+1)
+							number = number/10;
+						else {
+							sum2 =sum2+number%10;
+							number = number/10;
+						}
+					}
+					if(sum1 == sum2)
+						printf("This number is balanced and brings harmony!\n");
+					else
+						printf("This number isn't balanced and destroys harmony.\n");
+				}
+				break;
+			}
+
+			case 3 : {
+				// Case 3: determine whether the sum of the proper divisors (od an integer) is greater than the number itself
+				/* Examples:
+				Abudant: 12, 20, 24
+				Not Abudant: 3, 7, 10
+				Please notice: the number has to be bigger than 0.
+				*/
+				printf("Enter a number:\n");
+				do {
+					scanf("%d",&number);
+					if(number<=0)
+						printf("Only positive number is allowed, please try again:\n");
+				}while(number<=0);
+				sum1 =0;
+				for(int i=1; i<=number/2;i++) {
+					if(number%i==0)
+						sum1 +=i;
+				}
+				if(sum1 > number)
+					printf("This number is generous!\n");
+				else
+					printf("This number does not share.\n");
+				break;
+			}
+
+			case 4 : {
+				// Case 4: determine wether a number is a prime.
+				/* Examples:
+				This one brings joy: 3, 5, 11
+				This one does not bring joy: 15, 8, 99
+				Please notice: the number has to be bigger than 0.
+				*/
+				printf("Enter a number:\n");
+				do {
+					scanf("%d",&number);
+					if(number<=0)
+						printf("Only positive number is allowed, please try again:\n");
+				}while(number<=0);
+				if(number == 1)
+					printf("The circle remains incomplete.\n");
+				else {
+					flag = 1;
+					for(int i=2; i<=number/2;i++) {
+						if(number % i ==0)
+							flag = 0;
+					}
+					if(flag)
+						printf("This number completes the circle of joy!\n");
+					else
+						printf("The circle remains incomplete.\n");
+				}
+				break;
+			}
+			case 5 : {
+				printf("Enter a number:\n");
+			}
+
+
+
+
 			default:
 				printf("This option is not available, please try again.\n");
 				break;
@@ -52,36 +166,14 @@ int main() {
 
 
 
-	// Case 1: Draw Happy Face with given symbols for eyes, nose and mouse
-	/* Example:
-	* n = 3:
-	* 0   0
-	*   o
-	* \___/
-	*/
+
     
 
-	// Case 2: determine whether the sum of all digits to the left of the middle digit(s)
-	// and the sum of all digits to the right of the middle digit(s) are equal
-	/* Examples:
-	Balanced: 1533, 450810, 99
-	Not blanced: 1552, 34
-	Please notice: the number has to be bigger than 0.
-	*/
 
-	// Case 3: determine whether the sum of the proper divisors (od an integer) is greater than the number itself
-	/* Examples:
-	Abudant: 12, 20, 24
-	Not Abudant: 3, 7, 10
-	Please notice: the number has to be bigger than 0.
-	*/
 
-	// Case 4: determine wether a number is a prime.
-	/* Examples:
-	This one brings joy: 3, 5, 11
-	This one does not bring joy: 15, 8, 99
-	Please notice: the number has to be bigger than 0.
-	*/
+
+
+
     
 
 	// Happy numbers: Print all the happy numbers between 1 to the given number.
